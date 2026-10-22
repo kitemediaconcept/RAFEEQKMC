@@ -77,39 +77,27 @@ export default function App() {
             Right: Info ⊖, Work ⊕, Contact ⊕ (translated)
            ========================================================================= */}
         <header className="bg-white rounded-full px-2.5 sm:px-5 py-1.5 sm:py-2.5 shadow-xs border border-black/[0.04] flex items-center justify-between gap-1 sm:gap-3 transition-all">
-          {/* Brand Mark with Lens-Drift Focus Effect: RAFEEQ KMC */}
+          {/* Brand Mark with Lens-Drift Focus Effect: RAFEEQ KMC / رفيق KMC */}
           <div
-            className="flex items-center gap-1 sm:gap-2 cursor-pointer group py-0.5 select-none shrink-0"
-            title="Rafeeq KMC · Kite Media Concept"
+            className="flex items-center cursor-pointer group py-0.5 select-none shrink-0"
+            title={isAr ? 'رفيق كي إم سي · كايت ميديا كونسبت' : 'Rafeeq KMC · Kite Media Concept'}
             onClick={() => {
               setInfoOpen(true);
               setWorkOpen(true);
               setContactOpen(true);
             }}
           >
-            {/* Minimalist Division Glyph */}
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-neutral-900 group-hover:scale-110 transition-transform shrink-0"
-            >
-              <circle cx="12" cy="5" r="2.2" fill="currentColor" />
-              <rect x="6" y="11" width="12" height="2.4" rx="1.2" fill="currentColor" />
-              <circle cx="12" cy="19" r="2.2" fill="currentColor" />
-            </svg>
-
-            {/* Lens-Drift Animated Name: RAFEEQ KMC */}
+            {/* Lens-Drift Animated Name: Translates to Arabic when AR is active */}
             <div
-              className="fx-focus text-[9.5px] sm:text-[12.5px] font-semibold text-neutral-900 tracking-tight sm:tracking-[0.08em] whitespace-nowrap"
+              className={`fx-focus text-[10px] sm:text-[13px] font-semibold text-neutral-900 whitespace-nowrap ${
+                isAr ? 'tracking-normal font-bold' : 'tracking-tight sm:tracking-[0.08em]'
+              }`}
               role="img"
-              aria-label="RAFEEQ KMC"
+              aria-label={isAr ? 'رفيق KMC' : 'RAFEEQ KMC'}
             >
-              {'RAFEEQ KMC'.split('').map((char, index) =>
+              {(isAr ? 'رفيق KMC' : 'RAFEEQ KMC').split('').map((char, index) =>
                 char === ' ' ? (
-                  <span key={index} className="inline-block w-1 sm:w-1.5" />
+                  <span key={index} className="inline-block w-1.5 sm:w-2" />
                 ) : (
                   <b
                     key={index}
