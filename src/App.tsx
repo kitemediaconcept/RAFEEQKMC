@@ -76,10 +76,10 @@ export default function App() {
             Left: Division / Kite glyph + RAFEEQ KMC with Lens-Drift Effect
             Right: Info ⊖, Work ⊕, Contact ⊕ (translated)
            ========================================================================= */}
-        <header className="bg-white rounded-full px-4 sm:px-5 py-2.5 sm:py-3 shadow-xs border border-black/[0.04] flex items-center justify-between transition-all">
+        <header className="bg-white rounded-full px-2.5 sm:px-5 py-1.5 sm:py-2.5 shadow-xs border border-black/[0.04] flex items-center justify-between gap-1 sm:gap-3 transition-all">
           {/* Brand Mark with Lens-Drift Focus Effect: RAFEEQ KMC */}
           <div
-            className="flex items-center gap-1.5 sm:gap-2 cursor-pointer group py-0.5 select-none"
+            className="flex items-center gap-1 sm:gap-2 cursor-pointer group py-0.5 select-none shrink-0"
             title="Rafeeq KMC · Kite Media Concept"
             onClick={() => {
               setInfoOpen(true);
@@ -89,8 +89,8 @@ export default function App() {
           >
             {/* Minimalist Division Glyph */}
             <svg
-              width="17"
-              height="17"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -103,13 +103,13 @@ export default function App() {
 
             {/* Lens-Drift Animated Name: RAFEEQ KMC */}
             <div
-              className="fx-focus text-[11px] sm:text-[12.5px] font-semibold text-neutral-900 tracking-[0.08em] whitespace-nowrap"
+              className="fx-focus text-[9.5px] sm:text-[12.5px] font-semibold text-neutral-900 tracking-tight sm:tracking-[0.08em] whitespace-nowrap"
               role="img"
               aria-label="RAFEEQ KMC"
             >
               {'RAFEEQ KMC'.split('').map((char, index) =>
                 char === ' ' ? (
-                  <span key={index} className="inline-block w-1.5 sm:w-2" />
+                  <span key={index} className="inline-block w-1 sm:w-1.5" />
                 ) : (
                   <b
                     key={index}
@@ -123,12 +123,12 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right Navigation Pills (Localized) */}
-          <nav className="flex items-center gap-1.5 sm:gap-2">
+          {/* Right Navigation Pills (Localized & Compact on Mobile) */}
+          <nav className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             {/* Info Pill */}
             <button
               onClick={() => setInfoOpen(!infoOpen)}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 cursor-pointer ${
+              className={`flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
                 infoOpen
                   ? 'bg-[#ff3b94] text-white shadow-xs hover:bg-[#eb2b85]'
                   : 'bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300/80'
@@ -138,13 +138,13 @@ export default function App() {
               <span className="flex items-center justify-center">
                 {infoOpen ? (
                   // Minus circle icon ⊖
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="8" y1="12" x2="16" y2="12" />
                   </svg>
                 ) : (
                   // Plus circle icon ⊕
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="12" y1="8" x2="12" y2="16" />
                     <line x1="8" y1="12" x2="16" y2="12" />
@@ -158,7 +158,7 @@ export default function App() {
               onClick={() => {
                 setWorkOpen(!workOpen);
               }}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 cursor-pointer ${
+              className={`flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
                 workOpen
                   ? 'bg-neutral-900 text-white shadow-xs hover:bg-neutral-800'
                   : 'bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300/80'
@@ -167,12 +167,12 @@ export default function App() {
               <span>{t.work}</span>
               <span className="flex items-center justify-center">
                 {workOpen ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="8" y1="12" x2="16" y2="12" />
                   </svg>
                 ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="12" y1="8" x2="12" y2="16" />
                     <line x1="8" y1="12" x2="16" y2="12" />
@@ -189,7 +189,7 @@ export default function App() {
                   setIsContactModalOpen(true);
                 }
               }}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 cursor-pointer ${
+              className={`flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
                 contactOpen
                   ? 'bg-white text-neutral-800 border border-neutral-300/80 hover:bg-neutral-100'
                   : 'bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300/80'
@@ -197,7 +197,7 @@ export default function App() {
             >
               <span>{t.contact}</span>
               <span className="flex items-center justify-center">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5">
                   <circle cx="12" cy="12" r="10" />
                   <line x1="12" y1="8" x2="12" y2="16" />
                   <line x1="8" y1="12" x2="16" y2="12" />
