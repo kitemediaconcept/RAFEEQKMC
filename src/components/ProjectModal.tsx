@@ -1,20 +1,34 @@
 import React from 'react';
-import { X, ExternalLink, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { Project } from '../data/portfolioData';
+import { X, ExternalLink, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Project, PORTFOLIO_DATA } from '../data/portfolioData';
 import { ProjectThumbnail } from './ProjectThumbnail';
 
 interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
   onNextProject: () => void;
+  lang?: 'EN' | 'AR';
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({
   project,
   onClose,
   onNextProject,
+  lang = 'EN',
 }) => {
   if (!project) return null;
+
+  const t = PORTFOLIO_DATA.ui[lang];
+  const isAr = lang === 'AR';
+
+  const title = isAr && project.titleAr ? project.titleAr : project.title;
+  const subtitle = isAr && project.subtitleAr ? project.subtitleAr : project.subtitle;
+  const fullDescription =
+    isAr && project.fullDescriptionAr ? project.fullDescriptionAr : project.fullDescription;
+  const deliverables =
+    isAr && project.deliverablesAr ? project.deliverablesAr : project.deliverables;
+  const metrics = isAr && project.metricsAr ? project.metricsAr : project.metrics;
+  const badge = isAr && project.badgeAr ? project.badgeAr : project.badge;
 
   return (
     <div
@@ -22,13 +36,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       onClick={onClose}
     >
       <div
+        dir={isAr ? 'rtl' : 'ltr'}
         className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl border border-black/[0.08] p-6 sm:p-8 space-y-6 relative"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top bar */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-wider">
-            <span>Case Study</span>
+            <span>{t.caseStudy}</span>
             <span>·</span>
             <span>{project.year}</span>
           </div>
@@ -36,7 +51,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 flex items-center justify-center transition-colors"
-            aria-label="Close modal"
+            aria-label={t.close}
           >
             <X className="w-4 h-4" />
           </button>
@@ -48,14 +63,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
           <div className="space-y-1">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
-              {project.title}
+              {title}
             </h2>
             <p className="text-sm font-medium text-neutral-600">
-              {project.subtitle}
+              {subtitle}
             </p>
-            {project.badge && (
+            {badge && (
               <span className="inline-block mt-1 text-[11px] font-medium text-[#ff3b94] bg-[#ff3b94]/10 rounded-full px-2.5 py-0.5">
-                {project.badge}
+                {badge}
               </span>
             )}
           </div>
@@ -64,19 +79,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         {/* Full Overview */}
         <div className="space-y-3 pt-2 border-t border-neutral-100">
           <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-            Overview & Impact
+            {t.overviewAndImpact}
           </h4>
           <p className="text-[15px] leading-relaxed text-neutral-700">
-            {project.fullDescription}
+            {fullDescription}
           </p>
         </div>
 
         {/* Metrics highlight if any */}
-        {project.metrics && (
+        {metrics && (
           <div className="bg-neutral-50 rounded-2xl p-4 border border-neutral-200/60 flex items-center justify-between">
-            <div className="text-xs font-mono text-neutral-500">Key Metric</div>
+            <div className="text-xs font-mono text-neutral-500">{t.keyMetric}</div>
             <div className="text-sm font-bold text-neutral-900 font-mono-nums">
-              {project.metrics}
+              {metrics}
             </div>
           </div>
         )}
@@ -84,10 +99,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         {/* Deliverables */}
         <div className="space-y-3">
           <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-            Scope & Deliverables
+            {t.scopeAndDeliverables}
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {project.deliverables.map((item, idx) => (
+            {deliverables.map((item, idx) => (
               <div
                 key={idx}
                 className="flex items-center gap-2 text-xs font-medium text-neutral-700 bg-neutral-50 rounded-xl px-3 py-2 border border-neutral-100"
@@ -105,15 +120,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             onClick={onNextProject}
             className="flex items-center gap-1.5 text-xs font-medium text-neutral-600 hover:text-neutral-900 transition-colors py-2 px-3 rounded-xl hover:bg-neutral-100"
           >
-            <span>Next Project</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            {isAr ? <ArrowLeft className="w-3.5 h-3.5" /> : null}
+            <span>{t.nextProject}</span>
+            {!isAr ? <ArrowRight className="w-3.5 h-3.5" /> : null}
           </button>
 
           <a
-            href="mailto:kitemediaconcept@gmail.com?subject=Inquiry regarding Project"
+            href={`mailto:${PORTFOLIO_DATA.email}?subject=Inquiry regarding Project`}
             className="flex items-center gap-1.5 text-xs font-semibold text-white bg-neutral-900 hover:bg-neutral-800 transition-colors py-2 px-4 rounded-xl"
           >
-            <span>Inquire About Similar Work</span>
+            <span>{t.inquireWork}</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>

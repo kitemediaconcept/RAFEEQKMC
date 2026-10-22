@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { X, Mail, Copy, Check, Send, PhoneCall, Sparkles } from 'lucide-react';
+import { X, Mail, Copy, Check, Send } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  lang?: 'EN' | 'AR';
 }
 
-export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
+export const ContactModal: React.FC<ContactModalProps> = ({
+  isOpen,
+  onClose,
+  lang = 'EN',
+}) => {
   const [copied, setCopied] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,6 +20,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
+
+  const t = PORTFOLIO_DATA.ui[lang];
+  const isAr = lang === 'AR';
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PORTFOLIO_DATA.email);
@@ -41,6 +49,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       onClick={onClose}
     >
       <div
+        dir={isAr ? 'rtl' : 'ltr'}
         className="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-black/[0.08] p-6 sm:p-7 space-y-6 relative"
         onClick={(e) => e.stopPropagation()}
       >
@@ -48,16 +57,16 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         <div className="flex items-center justify-between">
           <div>
             <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
-              Get In Touch
+              {t.contact}
             </span>
             <h3 className="text-xl font-bold tracking-tight text-neutral-900">
-              Start a Conversation
+              {t.startConversation}
             </h3>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 flex items-center justify-center transition-colors"
-            aria-label="Close contact dialog"
+            aria-label={t.close}
           >
             <X className="w-4 h-4" />
           </button>
@@ -70,8 +79,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <Mail className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-[10px] uppercase font-mono text-neutral-400">Direct Email</div>
-              <div className="text-xs font-medium text-neutral-900 truncate">
+              <div className="text-[10px] uppercase font-mono text-neutral-400">
+                {t.directEmail}
+              </div>
+              <div className="text-xs font-medium text-neutral-900 truncate font-mono-nums">
                 {PORTFOLIO_DATA.email}
               </div>
             </div>
@@ -79,7 +90,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
           <button
             onClick={handleCopyEmail}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 cursor-pointer ${
               copied
                 ? 'bg-emerald-500 text-white shadow-xs'
                 : 'bg-white hover:bg-neutral-100 text-neutral-700 border border-neutral-200'
@@ -88,12 +99,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             {copied ? (
               <>
                 <Check className="w-3.5 h-3.5" />
-                <span>Copied</span>
+                <span>{t.copied}</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5" />
-                <span>Copy</span>
+                <span>{t.copy}</span>
               </>
             )}
           </button>
@@ -105,64 +116,70 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             <div className="w-10 h-10 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
               <Check className="w-5 h-5" />
             </div>
-            <h4 className="text-sm font-bold text-neutral-900">Message Received</h4>
-            <p className="text-xs text-neutral-500 max-w-xs mx-auto">
-              Thank you! Rafeeq KMC and the Kite Media Concept team will respond within 24 hours.
+            <h4 className="text-sm font-bold text-neutral-900">{t.messageReceived}</h4>
+            <p className="text-xs text-neutral-500 max-w-xs mx-auto leading-relaxed">
+              {t.thankYou}
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-3.5">
             <div>
-              <label className="block text-[11px] font-mono text-neutral-500 mb-1">Your Name</label>
+              <label className="block text-[11px] font-mono text-neutral-500 mb-1">
+                {t.yourName}
+              </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Jane Doe"
+                placeholder={t.namePlaceholder}
                 className="w-full text-xs bg-neutral-50 border border-neutral-200 rounded-xl px-3.5 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff3b94]/20 focus:border-[#ff3b94]"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono text-neutral-500 mb-1">Email Address *</label>
+              <label className="block text-[11px] font-mono text-neutral-500 mb-1">
+                {t.emailAddress}
+              </label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="jane@company.com"
+                placeholder={t.emailPlaceholder}
                 className="w-full text-xs bg-neutral-50 border border-neutral-200 rounded-xl px-3.5 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff3b94]/20 focus:border-[#ff3b94]"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono text-neutral-500 mb-1">Project Details *</label>
+              <label className="block text-[11px] font-mono text-neutral-500 mb-1">
+                {t.projectDetails}
+              </label>
               <textarea
                 required
                 rows={3}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Tell us about your brand goals, scope, and timeline..."
+                placeholder={t.messagePlaceholder}
                 className="w-full text-xs bg-neutral-50 border border-neutral-200 rounded-xl px-3.5 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#ff3b94]/20 focus:border-[#ff3b94] resize-none"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-[#ff3b94] hover:bg-[#e62b84] transition-colors flex items-center justify-center gap-2 shadow-sm"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-[#ff3b94] hover:bg-[#e62b84] transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>Send Message to Rafeeq</span>
+              <span>{t.sendMessage}</span>
             </button>
           </form>
         )}
 
         {/* Social presence */}
         <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500">
-          <span className="font-mono text-[10px]">KITE MEDIA CONCEPT</span>
+          <span className="font-mono text-[10px]">{t.companyTag}</span>
           <div className="flex gap-3">
             <a
-              href="mailto:kitemediaconcept@gmail.com"
+              href={`mailto:${PORTFOLIO_DATA.email}`}
               className="hover:text-neutral-900 transition-colors"
             >
               Email

@@ -1,39 +1,39 @@
 import React, { useState } from 'react';
-import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 interface BrandLogosProps {
   onBrandClick?: (brandId: string) => void;
+  lang?: 'EN' | 'AR';
 }
 
-export const BrandLogos: React.FC<BrandLogosProps> = ({ onBrandClick }) => {
+export const BrandLogos: React.FC<BrandLogosProps> = ({ onBrandClick, lang = 'EN' }) => {
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
 
   const brands = [
     {
       id: 'kite',
-      name: 'Kite Media Concept',
+      name: lang === 'AR' ? 'كايت ميديا كونسبت' : 'Kite Media Concept',
       src: '/assets/aistudio/kitemedialogoo_c93bfb06.png',
       fallbackSrc: '/public/assets/aistudio/kitemedialogoo_c93bfb06.png',
       alt: 'Kite Media Concept Logo',
-      role: 'Creative Direction & Omnichannel Media',
+      role: lang === 'AR' ? 'إخراج إبداعي وإنتاج إعلامي' : 'Creative Direction & Omnichannel Media',
       heightClass: 'h-6 sm:h-7 max-w-[125px] sm:max-w-[145px]',
     },
     {
       id: 'corekraft',
-      name: 'Corekraft',
+      name: lang === 'AR' ? 'كور كرافت' : 'Corekraft',
       src: '/assets/aistudio/logo_ee6cb459.png',
       fallbackSrc: '/public/assets/aistudio/logo_ee6cb459.png',
       alt: 'Corekraft Logo',
-      role: 'Brand Identity & Strategy',
+      role: lang === 'AR' ? 'الهوية البصرية والاستراتيجية' : 'Brand Identity & Strategy',
       heightClass: 'h-5 sm:h-6 max-w-[110px] sm:max-w-[130px]',
     },
     {
       id: 'signmate',
-      name: 'Sign Mate',
+      name: lang === 'AR' ? 'ساين ميت' : 'Sign Mate',
       src: '/assets/aistudio/322-removebg-preview_4c180e48.png',
       fallbackSrc: '/public/assets/aistudio/322-removebg-preview_4c180e48.png',
       alt: 'Sign Mate Logo',
-      role: 'Signage & Environmental Branding',
+      role: lang === 'AR' ? 'اللافتات والهوية المكانية' : 'Signage & Environmental Branding',
       heightClass: 'h-6 sm:h-7 max-w-[55px] sm:max-w-[65px]',
     },
   ];
